@@ -20,4 +20,10 @@ describe Card do
     end
   end
 
+  describe '#deduct' do
+    it 'decreases the balance of the card' do
+      expect{ card.deduct 5 }.to change{ card.balance }.by -5
+    end
+  end
+
 end

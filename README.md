@@ -62,7 +62,7 @@ rspec
 ```bash
 ....
 Finished in 0.10001 seconds (files took 0.59693 seconds to load)
-0 examples, 0 failures
+8 examples, 0 failures
 ```
 
 ## Domain Model

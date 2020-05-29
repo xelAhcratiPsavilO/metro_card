@@ -22,5 +22,12 @@ describe 'User Stories' do
     card.top_up Card::MAX_CREDIT
     expect { card.top_up 1 }.to raise_error 'Top up not allowed; Max limit reached'
   end
+# In order to pay for my journey
+# As a customer
+# I need my fare deducted from my card
+  it 'Card can get a fare deducted' do
+    card.deduct 5
+    expect(card.balance).to eq -5
+  end
 
 end

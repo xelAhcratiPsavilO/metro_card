@@ -13,6 +13,10 @@ class Card
     @balance += money_in
   end
 
+  def deduct(money_out)
+    @balance -= money_out
+  end
+
   private
 
   def limit_reached?(money_in)
