@@ -29,5 +29,20 @@ describe 'User Stories' do
     card.deduct 5
     expect(card.balance).to eq -5
   end
+# In order to get through the barriers.
+# As a customer
+# I need to touch in and out.
+  it 'Card is initially not in a journey' do
+    expect(card).not_to be_in_journey
+  end
+  it 'Card can be used to touch in' do
+    card.touch_in
+    expect(card).to be_in_journey
+  end
+  it 'Card can be used to touch out' do
+    card.touch_in
+    card.touch_out
+    expect(card).not_to be_in_journey
+  end
 
 end

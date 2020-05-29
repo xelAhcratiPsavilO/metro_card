@@ -26,4 +26,26 @@ describe Card do
     end
   end
 
+  describe '#in_journey?' do
+    it 'is initially not in a journey' do
+      expect(card).not_to be_in_journey
+    end
+  end
+
+  describe '#touch_in' do
+    it 'starts a journey' do
+      card.touch_in
+      expect(card).to be_in_journey
+    end
+
+  end
+
+  describe '#touch_out' do
+    it 'finishes a journey' do
+      card.touch_in
+      card.touch_out
+      expect(card).not_to be_in_journey
+    end
+
+  end
 end

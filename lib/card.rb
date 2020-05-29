@@ -6,6 +6,7 @@ class Card
 
   def initialize
     @balance = 0
+    @in_journey = false
   end
 
   def top_up(money_in)
@@ -15,6 +16,18 @@ class Card
 
   def deduct(money_out)
     @balance -= money_out
+  end
+
+  def touch_in
+    @in_journey = true
+  end
+
+  def touch_out
+    @in_journey = false
+  end
+
+  def in_journey?
+    @in_journey
   end
 
   private
