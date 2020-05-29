@@ -26,9 +26,9 @@ describe 'User Stories' do
 # As a customer
 # I need my fare deducted from my card
   it 'Card can get a fare deducted' do
-    card.top_up 10
-    card.deduct 5
-    expect(card.balance).to eq 5
+    card.top_up Card::MAX_CREDIT
+    card.touch_out
+    expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
   end
 # In order to get through the barriers.
 # As a customer
@@ -41,7 +41,7 @@ describe 'User Stories' do
     expect(card).to be_in_journey
   end
   it 'Card can be used to touch out' do
-    card.touch_in
+    card.top_up Card::MAX_CREDIT
     card.touch_out
     expect(card).not_to be_in_journey
   end
@@ -49,7 +49,16 @@ describe 'User Stories' do
 # As a customer
 # I need to have the minimum amount (£1) for a single journey.
   it 'Card has a min credit limit' do
-    expect { card.deduct 1 }.to raise_error 'Payment not allowed; Min credit reached'
+    card.touch_in
+    expect { card.touch_out }.to raise_error 'Payment not allowed; Min credit reached'
+  end
+# In order to pay for my journey
+# As a customer
+# When my journey is complete, I need the correct amount deducted from my card
+  it 'Card deducts amount on touch out' do
+    card.top_up Card::MAX_CREDIT
+      card.touch_out
+      expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
   end
 
 end

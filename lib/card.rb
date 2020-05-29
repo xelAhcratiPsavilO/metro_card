@@ -1,6 +1,6 @@
 class Card
 
-  MAX_CREDIT, MIN_CREDIT = 90, 0
+  MAX_CREDIT, MIN_CREDIT, MIN_FARE = 90, 0, 5
 
   attr_accessor :balance
 
@@ -14,16 +14,12 @@ class Card
     @balance += money_in
   end
 
-  def deduct(money_out)
-    raise 'Payment not allowed; Min credit reached' if min_reached(money_out)
-    @balance -= money_out
-  end
-
   def touch_in
     @in_journey = true
   end
 
   def touch_out
+    deduct(MIN_FARE)
     @in_journey = false
   end
 
@@ -39,6 +35,11 @@ class Card
 
   def min_reached(money_out)
     (@balance - money_out) < MIN_CREDIT
+  end
+
+  def deduct(money_out)
+    raise 'Payment not allowed; Min credit reached' if min_reached(money_out)
+    @balance -= money_out
   end
 
 end
