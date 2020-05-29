@@ -18,16 +18,17 @@ describe 'User Stories' do
 # In order to protect my money from theft or loss
 # As a customer
 # I want a maximum limit (of £90) on my card
-  it 'Card has a balance limit' do
+  it 'Card has a max credit limit' do
     card.top_up Card::MAX_CREDIT
-    expect { card.top_up 1 }.to raise_error 'Top up not allowed; Max limit reached'
+    expect { card.top_up 1 }.to raise_error 'Top up not allowed; Max credit reached'
   end
 # In order to pay for my journey
 # As a customer
 # I need my fare deducted from my card
   it 'Card can get a fare deducted' do
+    card.top_up 10
     card.deduct 5
-    expect(card.balance).to eq -5
+    expect(card.balance).to eq 5
   end
 # In order to get through the barriers.
 # As a customer
@@ -43,6 +44,12 @@ describe 'User Stories' do
     card.touch_in
     card.touch_out
     expect(card).not_to be_in_journey
+  end
+# In order to pay for my journey
+# As a customer
+# I need to have the minimum amount (£1) for a single journey.
+  it 'Card has a min credit limit' do
+    expect { card.deduct 1 }.to raise_error 'Payment not allowed; Min credit reached'
   end
 
 end

@@ -16,13 +16,17 @@ describe Card do
     end
     it 'raises an error' do
       card.top_up described_class::MAX_CREDIT
-      expect { card.top_up 1 }.to raise_error 'Top up not allowed; Max limit reached'
+      expect { card.top_up 1 }.to raise_error 'Top up not allowed; Max credit reached'
     end
   end
 
   describe '#deduct' do
     it 'decreases the balance of the card' do
+      card.top_up 10
       expect{ card.deduct 5 }.to change{ card.balance }.by -5
+    end
+    it 'raises an error' do
+      expect { card.deduct 1 }.to raise_error 'Payment not allowed; Min credit reached'
     end
   end
 
@@ -37,7 +41,6 @@ describe Card do
       card.touch_in
       expect(card).to be_in_journey
     end
-
   end
 
   describe '#touch_out' do
@@ -46,6 +49,6 @@ describe Card do
       card.touch_out
       expect(card).not_to be_in_journey
     end
-
   end
+
 end
