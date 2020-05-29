@@ -2,15 +2,16 @@
 
 Interaction diagram that shows how Objects use Messages to communicate with one another.
 ```
-CLASS           <--       METHOD      --> OUTPUT
+CLASS           <--        METHOD       --> OUTPUT
 
-Card            <--       balance     --> given balance
-Card            <--  top_up(money_in) --> error (if beyond credit max)
-Card            <--  top_up(money_in) --> balance + money_in
-Card            <--      touch_in     --> true
-Card            <--     touch_out     --> error (if under credit min)
-Card            <--     touch_out     --> balance - min_fare
-Card            <--     touch_out     --> in_journey? = false
-Card            <--    in_journey?    --> true/false
+Card            <--        balance      --> given balance
+Card            <--   top_up(money_in)  --> error (if beyond credit max)
+Card            <--   top_up(money_in)  --> balance + money_in
+Card            <-- touch_in(a Station) --> a Station
+Card            <--      touch_out      --> error (if under credit min)
+Card            <--      touch_out      --> balance - min_fare
+Card            <--      touch_out      --> in_journey? = false
+Card            <--     in_journey?     --> true/false
+Card            <--    entry_station    --> a Station
 ```
 Back to [readme](README.md).

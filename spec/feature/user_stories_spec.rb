@@ -1,6 +1,7 @@
 describe 'User Stories' do
 
   let (:card) { Card.new() }
+  let(:station) { double :station }
 
 # In order to use public transport
 # As a customer
@@ -37,11 +38,13 @@ describe 'User Stories' do
     expect(card).not_to be_in_journey
   end
   it 'Card can be used to touch in' do
-    card.touch_in
+    card.top_up Card::MAX_CREDIT
+    card.touch_in(:station)
     expect(card).to be_in_journey
   end
   it 'Card can be used to touch out' do
     card.top_up Card::MAX_CREDIT
+    card.touch_in(:station)
     card.touch_out
     expect(card).not_to be_in_journey
   end
@@ -49,7 +52,7 @@ describe 'User Stories' do
 # As a customer
 # I need to have the minimum amount (£1) for a single journey.
   it 'Card has a min credit limit' do
-    card.touch_in
+    card.touch_in(:station)
     expect { card.touch_out }.to raise_error 'Payment not allowed; Min credit reached'
   end
 # In order to pay for my journey
@@ -59,6 +62,14 @@ describe 'User Stories' do
     card.top_up Card::MAX_CREDIT
       card.touch_out
       expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
+  end
+# In order to pay for my journey
+# As a customer
+# I need to know where I've travelled from
+  it 'Card records entry Station' do
+    card.top_up Card::MAX_CREDIT
+    card.touch_in(:station)
+    expect(card.entry_station).to be :station
   end
 
 end

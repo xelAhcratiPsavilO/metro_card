@@ -2,11 +2,10 @@ class Card
 
   MAX_CREDIT, MIN_CREDIT, MIN_FARE = 90, 0, 5
 
-  attr_accessor :balance
+  attr_accessor :balance, :entry_station
 
   def initialize
     @balance = 0
-    @in_journey = false
   end
 
   def top_up(money_in)
@@ -14,17 +13,17 @@ class Card
     @balance += money_in
   end
 
-  def touch_in
-    @in_journey = true
+  def touch_in(station)
+    @entry_station = station
   end
 
   def touch_out
     deduct(MIN_FARE)
-    @in_journey = false
+    @entry_station = nil
   end
 
   def in_journey?
-    @in_journey
+    !!entry_station
   end
 
   private
