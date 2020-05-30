@@ -2,7 +2,7 @@ class Card
 
   MAX_CREDIT, MIN_CREDIT, MIN_FARE = 90, 0, 5
 
-  attr_reader :balance, :entry_station, :exit_station, :journeys
+  attr_reader :balance, :journeys
 
   def initialize
     @balance = 0
@@ -15,20 +15,13 @@ class Card
   end
 
   def touch_in(station)
-    @journey = {:entry_station => station}
-    @entry_station = station
+    record_entry(station)
   end
 
   def touch_out(station)
     deduct(MIN_FARE)
-    @journey[:exit_station] = station
-    @entry_station = nil
-    @exit_station = station
-    @journeys << @journey
-  end
-
-  def in_journey?
-    !!entry_station
+    record_exit(station)
+    record_journey
   end
 
   private
@@ -44,6 +37,18 @@ class Card
   def deduct(money_out)
     raise 'Payment not allowed; Min credit reached' if min_reached(money_out)
     @balance -= money_out
+  end
+
+  def record_entry(station)
+    @journey = {:entry_station => station}
+  end
+
+  def record_exit(station)
+    @journey[:exit_station] = station
+  end
+
+  def record_journey
+    @journeys << @journey
   end
 
 end

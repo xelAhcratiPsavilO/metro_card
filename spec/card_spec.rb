@@ -23,19 +23,6 @@ describe Card do
     end
   end
 
-  describe '#in_journey?' do
-    it 'is initially not in a journey' do
-      expect(card).not_to be_in_journey
-    end
-  end
-
-  describe '#touch_in' do
-    it 'starts a journey' do
-      card.touch_in entry_station
-      expect(card).to be_in_journey
-    end
-  end
-
   describe '#touch_out' do
     it 'raises an error' do
       expect { card.touch_out exit_station }.to raise_error 'Payment not allowed; Min credit reached'
@@ -45,37 +32,8 @@ describe Card do
         card.top_up described_class::MAX_CREDIT
         card.touch_in entry_station
       end
-      it 'finishes a journey' do
-        card.touch_out exit_station
-        expect(card).not_to be_in_journey
-      end
       it 'deducts the min fare' do
         expect{ card.touch_out exit_station }.to change{ card.balance }.by -described_class::MIN_FARE
-      end
-    end
-  end
-
-  describe '#entry_station' do
-    context 'when in journey' do
-      before do
-        card.top_up described_class::MAX_CREDIT
-        card.touch_in entry_station
-      end
-      it 'records where the journey started' do
-        expect(card.entry_station).to be entry_station
-      end
-    end
-  end
-
-  describe '#exit_station' do
-    context 'when in journey' do
-      before do
-        card.top_up described_class::MAX_CREDIT
-        card.touch_in entry_station
-      end
-      it 'records where the journey ends' do
-        card.touch_out exit_station
-        expect(card.exit_station).to be exit_station
       end
     end
   end

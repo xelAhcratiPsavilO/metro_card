@@ -61,8 +61,8 @@ rspec
 - Expected output:
 ```bash
 ....
-Finished in 0.01432 seconds (files took 0.12639 seconds to load)
-21 examples, 0 failures
+Finished in 0.04277 seconds (files took 0.56718 seconds to load)
+17 examples, 0 failures
 ```
 
 ## Domain Model

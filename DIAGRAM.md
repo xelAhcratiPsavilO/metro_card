@@ -8,13 +8,10 @@ Card            <--        balance       --> given balance
 Card            <--   top_up(money_in)   --> error (if beyond credit max)
 Card            <--   top_up(money_in)   --> balance + money_in
 Card            <-- touch_in(a Station)  --> a Station
-Card            <-- touch_in(a Station)  --> in_journey? = true
+Card            <-- touch_in(a Station)  --> :entry_station => a Station
 Card            <-- touch_out(a Station) --> error (if under credit min)
 Card            <-- touch_out(a Station) --> balance - min_fare
-Card            <-- touch_out(a Station) --> in_journey? = false
-Card            <--     in_journey?      --> true/false
-Card            <--    entry_station     --> a Station
-Card            <--    exit_station      --> a Station
+Card            <-- touch_out(a Station) --> :exit_station => a Station
 Card            <--      journeys        --> []
 ```
 Back to [readme](README.md).
