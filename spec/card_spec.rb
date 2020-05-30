@@ -68,4 +68,10 @@ describe Card do
     end
   end
 
+  describe '#journeys' do
+    it 'has an empty list of journeys by default' do
+      expect(card.journeys).to be_empty
+    end
+  end
+
 end

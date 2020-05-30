@@ -80,5 +80,8 @@ describe 'User Stories' do
     card.touch_out(:exit_station)
     expect(card.exit_station).to be :exit_station
   end
+  it 'Card has an empty list of journeys by default' do
+    expect(card.journeys).to be_empty
+  end
 
 end

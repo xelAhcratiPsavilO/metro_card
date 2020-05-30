@@ -2,10 +2,11 @@ class Card
 
   MAX_CREDIT, MIN_CREDIT, MIN_FARE = 90, 0, 5
 
-  attr_accessor :balance, :entry_station, :exit_station
+  attr_reader :balance, :entry_station, :exit_station, :journeys
 
   def initialize
     @balance = 0
+    @journeys = []
   end
 
   def top_up(money_in)
@@ -30,11 +31,11 @@ class Card
   private
 
   def max_reached?(money_in)
-    (@balance + money_in) > MAX_CREDIT
+    (balance + money_in) > MAX_CREDIT
   end
 
   def min_reached(money_out)
-    (@balance - money_out) < MIN_CREDIT
+    (balance - money_out) < MIN_CREDIT
   end
 
   def deduct(money_out)
