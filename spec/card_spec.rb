@@ -39,14 +39,17 @@ describe Card do
     it 'raises an error' do
       expect { card.touch_out(:exit_station) }.to raise_error 'Payment not allowed; Min credit reached'
     end
-    it 'finishes a journey' do
-      card.top_up described_class::MAX_CREDIT
-      card.touch_out(:exit_station)
-      expect(card).not_to be_in_journey
-    end
-    it 'deducts the min fare' do
-      card.top_up described_class::MAX_CREDIT
-      expect{ card.touch_out(:station) }.to change{ card.balance }.by -described_class::MIN_FARE
+    context 'when topped up' do
+      before do
+        card.top_up described_class::MAX_CREDIT
+      end
+      it 'finishes a journey' do
+        card.touch_out(:exit_station)
+        expect(card).not_to be_in_journey
+      end
+      it 'deducts the min fare' do
+        expect{ card.touch_out(:station) }.to change{ card.balance }.by -described_class::MIN_FARE
+      end
     end
   end
 
