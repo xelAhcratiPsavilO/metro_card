@@ -15,13 +15,16 @@ class Card
   end
 
   def touch_in(station)
+    @journey = {:entry_station => station}
     @entry_station = station
   end
 
   def touch_out(station)
     deduct(MIN_FARE)
+    @journey[:exit_station] = station
     @entry_station = nil
     @exit_station = station
+    @journeys << @journey
   end
 
   def in_journey?

@@ -15,5 +15,6 @@ Card            <-- touch_out(a Station) --> in_journey? = false
 Card            <--     in_journey?      --> true/false
 Card            <--    entry_station     --> a Station
 Card            <--    exit_station      --> a Station
+Card            <--      journeys        --> []
 ```
 Back to [readme](README.md).
