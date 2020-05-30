@@ -1,7 +1,8 @@
 describe 'User Stories' do
 
   let (:card) { Card.new() }
-  let(:station) { double :station }
+  let(:entry_station) { double :station }
+  let(:exit_station) { double :station }
 
 # In order to use public transport
 # As a customer
@@ -28,7 +29,7 @@ describe 'User Stories' do
 # I need my fare deducted from my card
   it 'Card can get a fare deducted' do
     card.top_up Card::MAX_CREDIT
-    card.touch_out
+    card.touch_out(:exit_station)
     expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
   end
 # In order to get through the barriers.
@@ -39,37 +40,45 @@ describe 'User Stories' do
   end
   it 'Card can be used to touch in' do
     card.top_up Card::MAX_CREDIT
-    card.touch_in(:station)
+    card.touch_in(:entry_station)
     expect(card).to be_in_journey
   end
   it 'Card can be used to touch out' do
     card.top_up Card::MAX_CREDIT
-    card.touch_in(:station)
-    card.touch_out
+    card.touch_in(:entry_station)
+    card.touch_out(:exit_station)
     expect(card).not_to be_in_journey
   end
 # In order to pay for my journey
 # As a customer
 # I need to have the minimum amount (£1) for a single journey.
   it 'Card has a min credit limit' do
-    card.touch_in(:station)
-    expect { card.touch_out }.to raise_error 'Payment not allowed; Min credit reached'
+    card.touch_in(:entry_station)
+    expect { card.touch_out(:exit_station) }.to raise_error 'Payment not allowed; Min credit reached'
   end
 # In order to pay for my journey
 # As a customer
 # When my journey is complete, I need the correct amount deducted from my card
   it 'Card deducts amount on touch out' do
     card.top_up Card::MAX_CREDIT
-      card.touch_out
-      expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
+    card.touch_out(:exit_station)
+    expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
   end
 # In order to pay for my journey
 # As a customer
 # I need to know where I've travelled from
   it 'Card records entry Station' do
     card.top_up Card::MAX_CREDIT
-    card.touch_in(:station)
-    expect(card.entry_station).to be :station
+    card.touch_in(:entry_station)
+    expect(card.entry_station).to be :entry_station
+  end
+# In order to know where I have been
+# As a customer
+# I want to see all my previous trips
+  it 'Card records exit Station' do
+    card.top_up Card::MAX_CREDIT
+    card.touch_out(:exit_station)
+    expect(card.exit_station).to be :exit_station
   end
 
 end

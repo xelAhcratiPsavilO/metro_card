@@ -2,7 +2,7 @@ class Card
 
   MAX_CREDIT, MIN_CREDIT, MIN_FARE = 90, 0, 5
 
-  attr_accessor :balance, :entry_station
+  attr_accessor :balance, :entry_station, :exit_station
 
   def initialize
     @balance = 0
@@ -17,9 +17,10 @@ class Card
     @entry_station = station
   end
 
-  def touch_out
+  def touch_out(station)
     deduct(MIN_FARE)
     @entry_station = nil
+    @exit_station = station
   end
 
   def in_journey?

@@ -3,7 +3,8 @@ require 'card'
 describe Card do
 
   subject(:card) { described_class.new() }
-  let(:station) { double :station }
+  let(:entry_station) { double :station }
+  let(:exit_station) { double :station }
 
   describe '#balance' do
     it 'starts at zero' do
@@ -29,30 +30,38 @@ describe Card do
 
   describe '#touch_in' do
     it 'starts a journey' do
-      card.touch_in(:station)
+      card.touch_in(:entry_station)
       expect(card).to be_in_journey
     end
   end
 
   describe '#touch_out' do
     it 'raises an error' do
-      expect { card.touch_out }.to raise_error 'Payment not allowed; Min credit reached'
+      expect { card.touch_out(:exit_station) }.to raise_error 'Payment not allowed; Min credit reached'
     end
     it 'finishes a journey' do
       card.top_up described_class::MAX_CREDIT
-      card.touch_out
+      card.touch_out(:exit_station)
       expect(card).not_to be_in_journey
     end
     it 'deducts the min fare' do
       card.top_up described_class::MAX_CREDIT
-      expect{ card.touch_out }.to change{ card.balance }.by -described_class::MIN_FARE
+      expect{ card.touch_out(:station) }.to change{ card.balance }.by -described_class::MIN_FARE
     end
   end
 
   describe '#entry_station' do
     it 'records where the journey started' do
-      card.touch_in(:station)
-      expect(card.entry_station).to be :station
+      card.touch_in(:entry_station)
+      expect(card.entry_station).to be :entry_station
+    end
+  end
+
+  describe '#exit_station' do
+    it 'records where the journey ends' do
+      card.top_up described_class::MAX_CREDIT
+      card.touch_out(:exit_station)
+      expect(card.exit_station).to be :exit_station
     end
   end
 
