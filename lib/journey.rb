@@ -1,6 +1,8 @@
-class Journey
+# frozen_string_literal: true
 
-  PENALTY_FARE, MIN_FARE  = 6, 1
+class Journey
+  PENALTY_FARE = 6
+  MIN_FARE = 1
 
   attr_reader :entry_station, :exit_station
 
@@ -34,5 +36,4 @@ class Journey
   def record_entry(station)
     @entry_station = station
   end
-
 end

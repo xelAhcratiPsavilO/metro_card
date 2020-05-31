@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'journey'
 
 describe Journey do
-
   subject(:journey) { described_class.new }
-  let(:station) { double :station, zone: 1}
+  let(:station) { double :station, zone: 1 }
 
   describe '#entry_station' do
     context 'when no entry station is given' do
@@ -64,7 +65,6 @@ describe Journey do
           expect(started_journey.fare).to eq described_class::MIN_FARE
         end
       end
-
     end
   end
 
@@ -73,5 +73,4 @@ describe Journey do
       expect(journey.finish(station)).to eq journey
     end
   end
-
 end

@@ -1,16 +1,20 @@
-class Card
+# frozen_string_literal: true
 
-  MAX_CREDIT, MIN_CREDIT, MIN_FARE = 90, 0, 5
+class Card
+  MAX_CREDIT = 90
+  MIN_CREDIT = 0
+  MIN_FARE = 5
 
   attr_reader :balance
 
   def initialize(journey_log)
-    @balance = 0
+    @balance = MIN_CREDIT
     @journey_log = journey_log
   end
 
   def top_up(money_in)
     raise 'Top up not allowed; Max credit reached' if max_reached?(money_in)
+
     add(money_in)
   end
 
@@ -39,6 +43,7 @@ class Card
 
   def deduct_fare
     raise 'Payment not allowed; Min credit reached' if min_reached(calculate_fare)
+
     @balance -= calculate_fare
   end
 
@@ -53,5 +58,4 @@ class Card
   def calculate_fare
     @journey_log.journeys.last.fare
   end
-
 end

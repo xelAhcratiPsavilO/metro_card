@@ -1,5 +1,6 @@
-class JourneyLog
+# frozen_string_literal: true
 
+class JourneyLog
   attr_reader :current_journey
 
   def initialize(journey_class)
@@ -40,5 +41,4 @@ class JourneyLog
   def close_current_journey
     @current_journey = nil
   end
-
 end

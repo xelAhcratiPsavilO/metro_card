@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'station'
 
 describe Station do
-
   subject(:station) { described_class.new(:name, 1) }
 
   describe '#name' do

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'journey_log'
 
 describe JourneyLog do
-
   subject(:journey_log) { described_class.new(journey) }
   let(:journey) { double :journey }
   let(:station) { double :station }
@@ -49,7 +50,6 @@ describe JourneyLog do
         journey_log.start(station)
         expect(journey_log.current_journey).to be journey
       end
-
     end
 
     context 'when a journey has finished' do

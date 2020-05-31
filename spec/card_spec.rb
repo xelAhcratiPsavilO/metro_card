@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'card'
 
 describe Card do
-
   subject(:card) { described_class.new(journey_log) }
   let(:entry_station) { double :station }
   let(:exit_station) { double :station }
-  let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
+  let(:journey) { { entry_station: entry_station, exit_station: exit_station } }
   let(:journey_log) { double :journey_log }
 
   describe '#balance' do
@@ -16,7 +17,7 @@ describe Card do
 
   describe '#top_up' do
     it 'increases the balance of the card' do
-      expect{ card.top_up 5 }.to change{ card.balance }.by 5
+      expect { card.top_up 5 }.to change { card.balance }.by 5
     end
     it 'raises an error' do
       card.top_up described_class::MAX_CREDIT
@@ -33,5 +34,4 @@ describe Card do
       expect { card.touch_out exit_station }.to raise_error 'Payment not allowed; Min credit reached'
     end
   end
-
 end
