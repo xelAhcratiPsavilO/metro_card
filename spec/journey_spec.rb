@@ -43,14 +43,14 @@ describe Journey do
 
   describe '#fare' do
     it 'has a default penalty fare' do
-      expect(journey.fare).to eq Journey::PENALTY_FARE
+      expect(journey.fare).to eq described_class::PENALTY_FARE
     end
 
     context 'when an entry station is given' do
       subject(:started_journey) { described_class.new(:entry_station) }
 
       it 'returns a penalty fare if no exit station given' do
-        expect(started_journey.fare).to eq Journey::PENALTY_FARE
+        expect(started_journey.fare).to eq described_class::PENALTY_FARE
       end
 
       context 'when an exit station is given' do
@@ -61,7 +61,7 @@ describe Journey do
         end
 
         it 'calculates a fare' do
-          expect(started_journey.fare).to eq 1
+          expect(started_journey.fare).to eq described_class::MIN_FARE
         end
       end
 

@@ -12,7 +12,6 @@ Card            <-- touch_in(a Station)  --> :entry_station => a Station
 Card            <-- touch_out(a Station) --> error (if under credit min)
 Card            <-- touch_out(a Station) --> balance - min_fare
 Card            <-- touch_out(a Station) --> :exit_station => a Station
-Card            <--      journeys        --> []
 
 Station        <--          name         --> given name
 Station        <--          zone         --> integer

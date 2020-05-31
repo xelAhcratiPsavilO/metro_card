@@ -1,10 +1,11 @@
 describe 'User Stories' do
 
-  let (:card) { Card.new() }
-  let (:station) { Station.new('Station Name', 1) }
+  let (:card) { Card.new(journey_log) }
+  let (:station) { Station.new(:name, 1) }
+  let (:journey_log) { JourneyLog.new(journey_class) }
   let(:entry_station) { double :station }
   let(:exit_station) { double :station }
-  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+  let(:journey_class) { Journey }
 
   # In order to use public transport
   # As a customer
@@ -59,7 +60,7 @@ describe 'User Stories' do
     # I need my fare deducted from my card
     it 'Card can get a fare deducted' do
       card.touch_out exit_station
-      expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
+      expect(card.balance).to eq Card::MAX_CREDIT - Journey::MIN_FARE
     end
 
     # In order to pay for my journey
@@ -67,7 +68,7 @@ describe 'User Stories' do
     # When my journey is complete, I need the correct amount deducted from my card
     it 'Card deducts amount on touch out' do
       card.touch_out exit_station
-      expect(card.balance).to eq Card::MAX_CREDIT - Card::MIN_FARE
+      expect(card.balance).to eq Card::MAX_CREDIT - Journey::MIN_FARE
     end
 
     # In order to pay for my journey
@@ -78,16 +79,16 @@ describe 'User Stories' do
     # As a customer
     # I want to see all my previous trips
     it 'The list of journeys can record a journey' do
-      card.touch_out exit_station
-      expect(card.journeys).to include journey
+      card.touch_in entry_station
+      expect(journey_log.journeys).to include journey_class
     end
   end
 
   # In order to know where I have been
   # As a customer
   # I want to see all my previous trips
-  it 'Card has an empty list of journeys by default' do
-    expect(card.journeys).to be_empty
+  it 'JourneyLog has an empty list of journeys by default' do
+    expect(journey_log.journeys).to be_empty
   end
 
   # In order to know how far I have travelled
@@ -100,6 +101,6 @@ describe 'User Stories' do
   # In order to be charged correctly
   # As a customer
   # I need a penalty charge deducted if I fail to touch in or out
-  
+
 
 end
