@@ -23,5 +23,13 @@ Journey        <--          fare         --> fare if given exit_station
 Journey        <--          fare         --> PENALTY_FARE
 Journey        <--   finish(a Station)   --> self
 Journey        <--        complete?      --> boolean
+
+JourneyLog     <--    start(a Station)   --> Journey.new
+JourneyLog     <--    start(a Station)   --> :entry_station => a Station
+JourneyLog     <--    start(a Station)   --> [ a Journey ]
+JourneyLog     <--    finish(a Station)  --> :exit_station => a Station
+JourneyLog     <--    finish(a Station)  --> current_journey => nil
+JourneyLog     <--         journeys      --> []
+JourneyLog     <--     current_journey   --> a Journey / nil
 ```
 Back to [readme](README.md).
