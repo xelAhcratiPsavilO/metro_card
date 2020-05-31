@@ -97,4 +97,9 @@ describe 'User Stories' do
     expect(station.zone).to eq(1)
   end
 
+  # In order to be charged correctly
+  # As a customer
+  # I need a penalty charge deducted if I fail to touch in or out
+  
+
 end

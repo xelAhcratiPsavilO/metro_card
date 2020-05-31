@@ -49,7 +49,7 @@ irb
 ```
 - Create a new Card instance (similarly for any other class):
 ```bash
-> station = Card.new
+> card = Card.new
 => #<Card:0x00007f8aee176d50>
 ```
 
@@ -61,8 +61,8 @@ rspec
 - Expected output:
 ```bash
 ....
-Finished in 0.01431 seconds (files took 0.11296 seconds to load)
-20 examples, 0 failures
+Finished in 0.04993 seconds (files took 0.30735 seconds to load)
+27 examples, 0 failures
 ```
 
 ## Domain Model

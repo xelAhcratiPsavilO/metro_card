@@ -16,5 +16,12 @@ Card            <--      journeys        --> []
 
 Station        <--          name         --> given name
 Station        <--          zone         --> integer
+
+Journey        <--     entry_station     --> a Station
+Journey        <--     exit_station      --> a Station
+Journey        <--          fare         --> fare if given exit_station
+Journey        <--          fare         --> PENALTY_FARE
+Journey        <--   finish(a Station)   --> self
+Journey        <--        complete?      --> boolean
 ```
 Back to [readme](README.md).
