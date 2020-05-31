@@ -1,4 +1,5 @@
 # Metro Card
+Object based system to automatize the use of an electronic public transport card. The card can be used touch in, touch out or top up credit as different fares are charged depending on the journey.
 
 ## Table of Contents
 * [Code Quality](#code-quality)
@@ -11,6 +12,7 @@
 * [Author](#author)
 
 ## Code Quality
+[![Maintainability](https://api.codeclimate.com/v1/badges/2759c6c2274badd769e1/maintainability)](https://codeclimate.com/github/xelAhcratiPsavilO/metro_card/maintainability)
 
 ## Technologies
 - Main technology
@@ -35,7 +37,7 @@ ruby -v
 ### Installing
 - Clone the repository:
 ```bash
-git clone git@github.com:xelAhcratiPsavilO/airport.git
+git clone git@github.com:xelAhcratiPsavilO/metro_card.git
 ```
 - Launch irb, pry or other ruby REPL:
 ```bash
@@ -61,23 +63,25 @@ rspec
 - Expected output:
 ```bash
 ....
-Finished in 0.02538 seconds (files took 0.11156 seconds to load)
-32 examples, 0 failures
+Finished in 0.11557 seconds (files took 0.57985 seconds to load)
+33 examples, 0 failures
 ```
 
 ## Domain Model
 
 High-level overview of the entities that make up this functional system.
 
-![](domain_model/DomainModel.png)
+![](domain_model/Domain_Model.png)
 
 Based on [client's requirements](USER_STORIES.md).
 
 Objects-Messages [diagram](DIAGRAM.md).
 
 ## Principles and takeaways
+Forwarding methods allows to encapsulate behavior in new objects maintaining code in line with the single responsibility principle. Dependency injection looses the coupling between objects, making the system more flexible, scalable and testable in isolated units. Abstraction and privatization of methods and properties allows to hide complexity creating simpler interfaces and reducing the impact of change.
 
 ## Analysis
+It would have been interesting expanding on the existing functionality by creating different zones for the Station class. That expansion on the system would have made the deducted fare even more variable, as it currently depends on the completion of the journey in order to charge a penalty fare or a regular one. A scalable design and seamless integration allowed the extraction and encapsulation of responsibilities into several classes.
 
 ## Author
 
