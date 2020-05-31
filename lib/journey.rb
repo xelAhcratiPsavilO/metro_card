@@ -18,7 +18,7 @@ class Journey
   end
 
   def complete?
-    exit_station
+    exit_station && entry_station
   end
 
   private

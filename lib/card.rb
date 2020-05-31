@@ -51,7 +51,6 @@ class Card
   end
 
   def calculate_fare
-    # @journey_log.journeys.empty? ? @journey_log.journeys.journey::PENALTY_FARE : @journey_log.journeys.last.fare
     @journey_log.journeys.last.fare
   end
 

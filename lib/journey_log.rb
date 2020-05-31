@@ -32,7 +32,9 @@ class JourneyLog
   end
 
   def record_exit(station)
+    @current_journey ||= @journey.new
     current_journey.finish(station)
+    record_journey if @journeys.last != current_journey
   end
 
   def close_current_journey

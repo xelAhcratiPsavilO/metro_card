@@ -101,6 +101,9 @@ describe 'User Stories' do
   # In order to be charged correctly
   # As a customer
   # I need a penalty charge deducted if I fail to touch in or out
-
+  it 'Card charges a penalty fare if failed to touch in or out' do
+    card.top_up Card::MAX_CREDIT
+    expect{ card.touch_out exit_station }.to change{ card.balance }.by -Journey::PENALTY_FARE
+  end
 
 end
